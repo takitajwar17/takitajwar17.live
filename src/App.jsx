@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { ThemeProvider, createTheme, CssBaseline, Box } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -10,13 +10,11 @@ import Leadership from './pages/Leadership';
 import Contact from './pages/Contact';
 
 function App() {
-  const [mode, setMode] = useState('light');
-
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
-          mode,
+          mode: 'light',
           primary: {
             main: '#2D46B9',
             light: '#4C63CF',
@@ -28,8 +26,8 @@ function App() {
             dark: '#D43D7D',
           },
           background: {
-            default: mode === 'light' ? '#FFFFFF' : '#121212',
-            paper: mode === 'light' ? '#F8F9FC' : '#1A1F35',
+            default: '#FFFFFF',
+            paper: '#F8F9FC',
           },
         },
         typography: {
@@ -79,9 +77,7 @@ function App() {
             styleOverrides: {
               root: {
                 borderRadius: 16,
-                boxShadow: mode === 'light'
-                  ? '0 4px 12px rgba(0, 0, 0, 0.05)'
-                  : '0 4px 12px rgba(255, 255, 255, 0.05)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
               },
             },
           },
@@ -91,12 +87,8 @@ function App() {
         },
         spacing: 8,
       }),
-    [mode],
+    [],
   );
-
-  const toggleColorMode = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -108,7 +100,7 @@ function App() {
           overflowX: 'hidden',
           bgcolor: 'background.default',
         }}>
-          <Navbar isDarkMode={mode === 'dark'} toggleTheme={toggleColorMode} />
+          <Navbar />
           <Box
             component="main"
             sx={{

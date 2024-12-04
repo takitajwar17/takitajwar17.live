@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Button, useTheme, useMediaQuery, Drawer, List, ListItem, ListItemText, Container } from '@mui/material';
-import { Menu as MenuIcon, DarkMode, LightMode, Close as CloseIcon } from '@mui/icons-material';
+import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Navbar = ({ toggleTheme, isDarkMode }) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const theme = useTheme();
@@ -150,41 +150,20 @@ const Navbar = ({ toggleTheme, isDarkMode }) => {
                     </Button>
                   </motion.div>
                 ))}
-                <IconButton 
-                  onClick={toggleTheme}
-                  sx={{ 
-                    ml: 2,
-                    background: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-                    '&:hover': {
-                      background: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
-                    }
-                  }}
-                >
-                  {isDarkMode ? <LightMode /> : <DarkMode />}
-                </IconButton>
               </Box>
             )}
 
             {/* Mobile Menu Button */}
             {isMobile && (
-              <Box sx={{ display: 'flex', gap: 1 }}>
-                <IconButton 
-                  onClick={toggleTheme}
-                  sx={{ 
-                    background: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-                  }}
-                >
-                  {isDarkMode ? <LightMode /> : <DarkMode />}
-                </IconButton>
-                <IconButton
-                  onClick={handleDrawerToggle}
-                  sx={{ 
-                    background: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-                  }}
-                >
-                  {isOpen ? <CloseIcon /> : <MenuIcon />}
-                </IconButton>
-              </Box>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={handleDrawerToggle}
+                sx={{ ml: 'auto' }}
+              >
+                {isOpen ? <CloseIcon /> : <MenuIcon />}
+              </IconButton>
             )}
           </Toolbar>
         </Container>
